@@ -1,0 +1,30 @@
+Relatório
+
+
+Introdução: Descrição sucinta da DSL escolhida, indicando se é uma DSL original ou se
+é uma implementação de uma DSL já existente. Deve ser apresentado o propósito
+da DSL.
+
+Definição da DSL: Deve apresentar uma descrição da sintaxe da DSL, este descrição
+deve conter obrigatoriamente a gramática que foi implementada em notação
+EBNF e os diagramas de sintaxe gerados pelo ANTLR. Também devem ser dados
+alguns exemplos de “código” da linguagem ilustrando as construções sintáticas.
+
+Definiição da AST: Descrição sucinta da estrutura de dados criada para reapresentar
+os códigos da linguagem (Abstract Syntax Tree – AST). Esta seção deve conter o
+diagrama de classes e uma descrição de cada classe. Não é necessário descrever
+cada atributo e cada método. A descrição pode ser feita em alto nı́vel com o
+essencial para a compreensão da implementação.
+
+
+
+trab-final
+Readme.md
+relatório em pdf
+source
+build file
+código fonte do trabalho
+...
+testes
+arquivos de teste da DSL
+...
