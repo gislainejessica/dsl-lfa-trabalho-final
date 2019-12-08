@@ -9,7 +9,5 @@ Trabalho desenvolvido pela disciplina de Linguagem Formais e Autômatos
 
 (d) a forma de construção (build), se for necessário;
 
-(e) instruções de como executar o programa.
-
-link para relatorio
+(e) instruções de como executar o programa. (link para relatorio)
 
