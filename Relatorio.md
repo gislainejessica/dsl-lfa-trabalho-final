@@ -18,9 +18,9 @@ Be Cute:
 ...
 
 *Definição da DSL*: Deve apresentar uma descrição da sintaxe da DSL, este descrição
-deve conter obrigatoriamente a gramática que foi implementada em notação
-EBNF e os diagramas de sintaxe gerados pelo ANTLR. Também devem ser dados
-alguns exemplos de “código” da linguagem ilustrando as construções sintáticas.
+deve conter obrigatoriamente a __gramática__ que foi implementada em notação
+__EBNF__ e os __diagramas__ de sintaxe gerados pelo ANTLR. Também devem ser dados
+alguns __exemplos__ de “código” da linguagem ilustrando as construções sintáticas.
 
 *Definiição da AST*: Descrição sucinta da estrutura de dados criada para reapresentar
 os códigos da linguagem (Abstract Syntax Tree – AST). Esta seção deve conter o
