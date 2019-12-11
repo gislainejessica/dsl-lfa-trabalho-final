@@ -1,3 +1,5 @@
+package source.gramatica;
+
 // Generated from /home/gislaine/dsl-lfa-trabalho-final/source/gramatica/TamagotchiCat.g4 by ANTLR 4.7.1
 
 //package source.gramatica;
