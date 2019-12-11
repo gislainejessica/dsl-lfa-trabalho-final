@@ -23,19 +23,19 @@ import source.ast.data.FloatLit;
 import source.ast.data.Ops;
 
 
-public class main {
-    public static void Jogar(String[] args) throws IOException {  
+public class Jogar implements Runnable {
+    /*   public static void Jogar(String[] args) throws IOException {  
 
         CharStream input = CharStreams.fromFileName("./src/tests/exemplo.txt");
         TamagotchiCatLexer lexer = new TamagotchiCatLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         TamagotchiCatParser parser = new TamagotchiCatParser(tokens);
         
-        /*TamagotchiCatParser.TipagemContext ans = parser.tipagem();         
-        TamagotchiCatParser.ValorContext ans1 = parser.valor();*/
+        //TamagotchiCatParser.TipagemContext ans = parser.tipagem();         
+        TamagotchiCatParser.ValorContext ans1 = parser.valor();
   
         //LaricaDoSurfParser.Definicao_funcaoContext ans = parser.definicao_funcao();
-        TamagotchiCatParser.Expressao_condicionalContext ans = parser.expressao_condicional();
+        // TamagotchiCatParser.Expressao_condicionalContext ans = parser.expressao_condicional();
         //LaricaDoSurfParser.BlocoContext ans = parser.bloco();
                         
         System.out.printf(">>> %s\n", ans.result);   
@@ -43,16 +43,18 @@ public class main {
         fis.close();        
         
     }
+    */
+
     // ...
-    private static final String VERSION = "0.7.0 (escopo estático)";
-    private static final String PROGNAME = "Expr";
+    private static final String VERSION = "1.0 (Permaneça Vivo)";
+    private static final String PROGNAME = "Tamagochi";
     
     private Scanner reader;
     private PrintWriter writer;
     private Boolean showExpr = false;
 
     public static void main(String[] args) {
-        Main main = new Main();
+        Jogar main = new Jogar();
         main.run();
     }
     
@@ -67,7 +69,6 @@ public class main {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
     
     public void repl(Context ctx) throws IOException {
         setReader(new Scanner(System.in));
@@ -222,10 +223,10 @@ public class main {
     
     private Expr readExpr(String line) {
         CharStream input = CharStreams.fromString(line);
-        DartSampleLexer lexer = new DartSampleLexer(input);
+        TamagotchiCatLexer lexer = new TamagotchiCatLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        DartSampleParser parser = new DartSampleParser(tokens);
-        DartSampleParser.ProgrContext prog = parser.progr();
+        TamagotchiCatParser parser = new TamagotchiCatParser(tokens);
+        TamagotchiCatParser.ProgrContext prog = parser.progr();
         
         Expr expr = Expr.UNIT;
         if (prog.exception != null) {
@@ -241,10 +242,10 @@ public class main {
     
     private Expr loadFromFile(String file) throws IOException {
         CharStream input = CharStreams.fromFileName(file);
-        DartSampleLexer lexer = new DartSampleLexer(input);
+        TamagotchiCatLexer lexer = new TamagotchiCatLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        DartSampleParser parser = new DartSampleParser(tokens);
-        DartSampleParser.ProgrContext prog = parser.progr();
+        TamagotchiCatParser parser = new TamagotchiCatParser(tokens);
+        TamagotchiCatParser.ProgrContext prog = parser.progr();
         
         Expr expr = Expr.UNIT;
         if (prog.exception != null) {

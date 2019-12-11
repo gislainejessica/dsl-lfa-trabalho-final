@@ -4,10 +4,6 @@ import java.util.HashMap;
 import java.util.Optional;
 import java.util.Set;
 
-/**
- *
- * @author jefferson
- */
 public class Context {
 
     private final HashMap<String, Expr> map;

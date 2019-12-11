@@ -6,10 +6,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-/**
- *
- * @author jefferson
- */
 public class ListExpr extends Expr {
 
     private final List<Expr> exprList;

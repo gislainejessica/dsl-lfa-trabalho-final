@@ -4,10 +4,6 @@ import static java.lang.String.format;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- *
- * @author jefferson
- */
 public class TestUtils {
     
     public static String unquote(String t, char quoteChar) {

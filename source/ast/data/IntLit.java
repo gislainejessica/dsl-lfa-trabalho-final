@@ -5,10 +5,6 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.Objects;
 
-/**
- *
- * @author jefferson
- */
 public class IntLit extends Numeric<BigInteger> {
 
     public static IntLit of(int x) {

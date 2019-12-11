@@ -1,8 +1,5 @@
 package source.ast.data;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Bool extends BasicLiteral<Boolean> {
     
     public static final Bool of(Boolean value) {

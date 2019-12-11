@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- *
- * @author jefferson
- */
 public abstract class Expr implements Comparable<Expr> {
     
     public static final Expr UNIT = new Expr() {

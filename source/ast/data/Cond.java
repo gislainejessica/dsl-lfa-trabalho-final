@@ -1,13 +1,8 @@
 package source.ast.data;
 
-import java.util.ArrayList;
 import java.util.List;
 import static java.util.stream.Collectors.joining;
 
-/**
- *
- * @author jefferson
- */
 public class Cond extends Expr {
 
     private final List<GuardedExpr> condList;

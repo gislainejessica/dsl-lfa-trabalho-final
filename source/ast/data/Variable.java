@@ -1,9 +1,5 @@
 package source.ast.data;
 
-/**
- *
- * @author jefferson
- */
 public class Variable extends Expr {
 
     private final String name;

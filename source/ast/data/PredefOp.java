@@ -1,9 +1,5 @@
 package source.ast.data;
 
-/**
- *
- * @author jefferson
- */
 public abstract class PredefOp extends Applicable {
 
     private final String name;

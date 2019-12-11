@@ -1,17 +1,13 @@
 package source.ast.data;
 
 import java.io.Console;
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
+//import java.math.BigDecimal;
+//import java.math.MathContext;
+//import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- *
- * @author jefferson
- */
 public class Ops {
     
     public static String ARITY_ERROR_MSG = 

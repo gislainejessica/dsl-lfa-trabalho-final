@@ -1,12 +1,5 @@
 package source.ast.data;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- *
- * @author jefferson
- */
 public abstract class BasicLiteral<T> extends Literal {
 
     public final T value;

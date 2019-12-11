@@ -1,14 +1,10 @@
 package source.ast.data;
 
-import static com.mycompany.dartmaven.data.TestUtils.escape;
-import static com.mycompany.dartmaven.data.TestUtils.quote;
-import static com.mycompany.dartmaven.data.TestUtils.unescape;
-import static com.mycompany.dartmaven.data.TestUtils.unquote;
+import static source.ast.data.TestUtils.escape;
+import static source.ast.data.TestUtils.quote;
+import static source.ast.data.TestUtils.unescape;
+import static source.ast.data.TestUtils.unquote;
 
-/**
- *
- * @author jefferson
- */
 public class CharLit extends BasicLiteral<Character> {
 
     public static Expr of(char c) {

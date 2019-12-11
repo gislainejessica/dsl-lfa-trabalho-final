@@ -1,9 +1,5 @@
 package source.ast.data;
 
-/**
- *
- * @author jefferson
- */
 public abstract class Numeric<T> extends BasicLiteral<T> {
 
     protected Numeric(T value) {

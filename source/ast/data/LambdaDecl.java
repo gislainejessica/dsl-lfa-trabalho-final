@@ -3,10 +3,6 @@ package source.ast.data;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- *
- * @author jefferson
- */
 public class LambdaDecl extends Expr {
 
     private final List<String> formalArgs;

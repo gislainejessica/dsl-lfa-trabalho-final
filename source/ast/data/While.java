@@ -23,12 +23,13 @@ public class While extends Expr {
 
     @Override
     public String toString() {
-        return String.format("(while %s %s)", cond, doExpr);
+        return String.format("(While %s %s)", cond, doExpr);
     }
 
     @Override
-    public int compareTo(Expr o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int compareTo(Expr arg0) {
+        // TODO Auto-generated method stub
+        return 0;
     }
     
 }

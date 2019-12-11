@@ -5,10 +5,6 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.Objects;
 
-/**
- *
- * @author jefferson
- */
 public class FloatLit extends Numeric<BigDecimal> {
     
     public static FloatLit of(double x) {

@@ -3,10 +3,6 @@ package source.ast.data;
 import java.util.List;
 import java.util.Objects;
 
-/**
- *
- * @author jefferson
- */
 public class ListLit extends Literal {
 
     public static final ListLit NIL = new ListLit(null, null) {

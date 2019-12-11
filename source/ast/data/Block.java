@@ -3,7 +3,6 @@ package source.ast.data;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 public class Block extends Expr {
 
     private final List<Expr> exprList;

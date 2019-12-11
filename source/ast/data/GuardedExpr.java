@@ -1,9 +1,5 @@
 package source.ast.data;
 
-/**
- *
- * @author jefferson
- */
 public class GuardedExpr {
 
     public final Expr guard;
