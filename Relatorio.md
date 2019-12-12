@@ -28,3 +28,35 @@ __diagrama de classes__ e uma descrição de cada classe. Não é necessário de
 cada atributo e cada método. A descrição pode ser feita em alto nı́vel com o
 essencial para a compreensão da implementação.
 
+---
+Relatório
+
+
+Introdução:
+TamagotchiCat é uma DSL criada para ser utilizada em um jogo que simula o dia a dia de um gato e suas necessidades. O objetivo é ver se o gato permanece vivo depois de um dia, tudo vai depender das escolhas feitas. 
+O propósito de construção dessa DSL é aplicar os conceitos estudados sobre criação de linguagens utilizando contextos específicos.
+TamagotchiCat
+Objetivo: 
+Fazer o gato sobreviver um dia
+What you can do?
+Alimentar: Food and Water, noFood
+Brincar: Move, Hide, Hand, High fall
+“Nanar”: Yes, No
+What cat can do?
+Miar: Long, Const, Sundelly, High Up, Snack
+Interações possíveis
+Se gato mia, pode ser:
+Fome
+Se não come -1
+Sede
+Se não bebe -1
+Brincar (Atenção)
+Se não brinca -1
+Carinho
+Se não carinho -1
+Jogo modo Dormir
+Jogo modo Comer
+Jogo modo Brincar 
+Jogo modo Atenção
+
+
