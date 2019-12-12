@@ -24,7 +24,7 @@ alguns __exemplos__ de “código” da linguagem ilustrando as construções si
 
 *Definiição da AST*: Descrição sucinta da estrutura de dados criada para reapresentar
 os códigos da linguagem (Abstract Syntax Tree – AST). Esta seção deve conter o
-diagrama de classes e uma descrição de cada classe. Não é necessário descrever
+__diagrama de classes__ e uma descrição de cada classe. Não é necessário descrever
 cada atributo e cada método. A descrição pode ser feita em alto nı́vel com o
 essencial para a compreensão da implementação.
 
