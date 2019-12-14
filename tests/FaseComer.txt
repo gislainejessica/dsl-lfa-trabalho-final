@@ -1,0 +1,14 @@
+fase := 'alimentacao' 
+
+survive (fase) #
+  need 'comer'#
+    status = func feed();
+  $
+  need 'dormir'#
+    status func dormir();
+  $
+$
+
+need > 0#
+  println("the cat is alive o/")
+$

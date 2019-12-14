@@ -6,129 +6,112 @@ import source.ast.*;
 }
 
 programa returns [Expr result]
-  : cat=exprSeq    {$result = Block.from($cat.exprs);}
+  : catlive=exprSeq    {$result = Block.from($catlive.exprs);}
 ;
 
 exprSeq returns [List<Expr> exprs]
   @init {$exprs= new LinkedList<Expr>();}
-    : (e1=expr     (SEMI | NL) {$exprs.add($e1.result);}
-      |/* vazio */ (SEMI | NL)
+    : (expr     (SEMI | NL) {$exprs.add($expr.result);}
+    | (SEMI | NL)
       )* 
 ;
 
 expr returns [Expr result]
   : CARACTERE RECEBE e1=expr  {$result = new Assign($CARACTERE.text, $e1.result);}
-  | i1=ifExpr                 {$result = $i1.result;}
-  | w1=whileExpr              {$result = $w1.result;}
-  | b1=blockExpr              {$result = $b1.result;}
-  | x1=bexpr                  {$result = $x1.result;}
-  | d1=fundecl                {$result = $d1.result;}
+  | selecao                   {$result = $selecao.result;}
+  | repeticao                 {$result = $repeticao.result;}
+  | bloco                     {$result = $bloco.result;}
+  | condicionais              {$result = $condicionais.result;}
+  | fundecl                   {$result = $fundecl.result;}
 ;
 
 fundecl returns [Expr result]
-  : FUNC CARACTERE LPAR fa=formalArgs RPAR RECEBE e1=expr
-    {$result = new FunDecl($CARACTERE.text, $fa.args, $e1.result);}
-  | FUNC LPAR fa=formalArgs RPAR RECEBE e1=expr
-    {$result = Lambda.declare($fa.args, $e1.result);}
+  : FUNC CARACTERE LPAR argumentos RPAR RECEBE expr
+    {$result = new FunDecl($CARACTERE.text, $argumentos.args, $expr.result);}
 ;
 
-formalArgs returns [List<String> args]
+argumentos returns [List<String> args]
   @init {$args = new ArrayList<>();}
-    : /* vazia */
-    | CARACTERE         {$args.add($CARACTERE.text);}
+    : /* nada */
+    | CARACTERE           {$args.add($CARACTERE.text);}
       (VIRGULA CARACTERE  {$args.add($CARACTERE.text);})*
 ;
 
-ifExpr returns [Expr result]
+selecao returns [Expr result]
   @init {List<GuardedExpr> gs = new LinkedList<>();}
-    : IF c1=expr THEN NL? t1=expr NL?
+    : IF c1=expr STARTBLOCK NL? t1=expr ENDBLOCK NL? 
         {gs.add(new GuardedExpr($c1.result, $t1.result));} 
-      (ELSE NL? t3=expr NL?
-        {gs.add(new GuardedExpr(Bool.VERUM, $t3.result));}
+    |  (ELSE NL? t3=expr NL? 
+        {gs.add(new GuardedExpr(Bool.VERDADE, $t3.result));}
       )?
+      ENDBLOCK
         {$result = new Cond(gs);}
 ;
 
-whileExpr returns [Expr result]
-  : WHILE c1=expr STARTBLOCK NL? d1=expr   
-    {$result = new While($c1.result, $d1.result);}
+repeticao returns [Expr result]
+  : WHILE e1=expr bloco 
+    {$result = new While($e1.result, $bloco.result);}
 ;
 
-blockExpr returns [Expr result]
-  : STARTBLOCK es=exprSeq ENDBLOCK {$result = Block.from($es.exprs);}
+bloco returns [Expr result]
+  : STARTBLOCK exprSeq ENDBLOCK {$result = Block.from($exprSeq.exprs);}
 ;
 
-bexpr returns [Expr result]
-  : d1=disjExpr        {$result = $d1.result;}
-    (OU d2=disjExpr    {$result = new FunCall(Ops.OR, $result, $d2.result);})*
-;
-
-disjExpr returns [Expr result]
-  : c1=conjExpr       {$result = $c1.result;}
-    (E c2=conjExpr  {$result = new FunCall(Ops.AND, $result, $c2.result);})*
-;
-
-conjExpr returns [Expr result]
-  : a1=addExpr        {$result = $a1.result;}
-    (IGUAL a2=addExpr   {$result = new FunCall(Ops.IGUAL, $result, $a2.result);}
-    |DIFF a2=addExpr   {$result = new FunCall(Ops.DIFF, $result, $a2.result);}
-    |MAIOR a2=addExpr    {$result = new FunCall(Ops.MAIOR, $result, $a2.result);}
-    |MENOR a2=addExpr    {$result = new FunCall(Ops.MENOR, $result, $a2.result);}
-    |MAIORIGUAL a2=addExpr   {$result = new FunCall(Ops.MAIORIGUAL, $result, $a2.result);}
-    |MENORIGUAL a2=addExpr   {$result = new FunCall(Ops.MENORIGUAL, $result, $a2.result);}
-    )?
+condicionais returns [Expr result]
+  : addExpr               {$result = $addExpr.result;}
+    |E addExpr            {$result = new FunCall(Ops.AND, $result, $addExpr.result);}
+    |IGUAL addExpr        {$result = new FunCall(Ops.IGUAL, $result, $addExpr.result;}
+    |DIFF addExpr         {$result = new FunCall(Ops.DIFF, $result, $addExpr.result);}
+    |MAIOR addExpr        {$result = new FunCall(Ops.MAIOR, $result, $addExpr.result);}
+    |MENOR addExpr        {$result = new FunCall(Ops.MENOR, $result, $addExpr.result);}
+    |MAIORIGUAL addExpr   {$result = new FunCall(Ops.MAIORIGUAL, $result, $addExpr.result);}
+    |MENORIGUAL addExpr   {$result = new FunCall(Ops.MENORIGUAL, $result, $addExpr.result);}
 ;
     
 addExpr returns [Expr result] 
-  : a1=multExpr       {$result = $a1.result;}
-    ('+' a2=multExpr  {$result = new FunCall(Ops.PLUS, $result, $a2.result);}
-    |'-' a2=multExpr  {$result = new FunCall(Ops.MINUS, $result, $a2.result);})*
+  : multExpr       {$result = $multExpr.result;}
+    ('+' multExpr  {$result = new FunCall(Ops.PLUS, $result, $multExpr.result);}
+    |'-' multExpr  {$result = new FunCall(Ops.MINUS, $result, $multExpr.result);})*
 ;
 
 multExpr returns [Expr result]
-  : a1=simpleExpr       {$result = $a1.result;}
-    ('*' a2=simpleExpr  {$result = new FunCall(Ops.TIMES, $result, $a2.result);}
-    |'/' a2=simpleExpr  {$result = new FunCall(Ops.DIVIDE, $result, $a2.result);}
-    |'//' a2=simpleExpr {$result = new FunCall(Ops.IDIV, $result, $a2.result);}
-    |'%' a2=simpleExpr  {$result = new FunCall(Ops.MOD, $result, $a2.result);})*
+  : simpleExpr       {$result = $simpleExpr.result;}
 ;
 
 simpleExpr returns [Expr result]
-  : a1=atomExpr {$result = $a1.result;}
-  | a1=atomExpr LPAR es=exprList RPAR
+  : atomExpr {$result = $atomExpr.result;}
+  | atomExpr LPAR listExpresao RPAR
     {
-      Expr f = $a1.result;
-      $result = new FunCall(f, $es.exprs);
+      Expr f = $atomExpr.result;
+      $result = new FunCall(f, $listExpresao.exprs);
     }
 ;
 
 atomExpr returns [Expr result]
-  : '-' a1=atomExpr       {$result = new FunCall(Ops.UMINUS, $a1.result);}
-  | '!' a1=atomExpr       {$result = new FunCall(Ops.NOT, $a1.result);}
-  | n=number              {$result = $n.result;}
-  | b=bool                {$result = $b.result;}
-  | STRING                {$result = StringLit.fromRepr($STRING.text);}
-  | CHAR                  {$result = CharLit.fromRepr($CHAR.text);}
-  | CARACTERE           {$result = new Variable($CARACTERE.text);}
-  | LBKT es=exprList RBKT {$result = new ListExpr($es.exprs);}
-  | LPAR e1=expr RPAR     {$result = $e1.result;}
+  : '!' atomExpr              {$result = new FunCall(Ops.NOT, $atomExpr.result);}
+  | numero                    {$result = $numero.result;}
+  | bool                      {$result = $bool.result;}
+  | STRING                    {$result = StringLit.fromRepr($STRING.text);}
+  | CARACTERE                 {$result = new Variable($CARACTERE.text);}
+  | LBKT listExpresao RBKT    {$result = new ListExpr($listExpresao.exprs);}
+  | LPAR expr RPAR            {$result = $expr.result;}
 ;
 
-exprList returns [List<Expr> exprs]
+listExpresao returns [List<Expr> exprs]
   @init { $exprs = new LinkedList<Expr>(); }
-    : /* vazio */
-    | e1=expr         {$exprs.add($e1.result);}
-      (VIRGULA e2=expr  {$exprs.add($e2.result);})*
+    : /* nada */
+    | expr           {$exprs.add($expr.result);}
+      (VIRGULA expr  {$exprs.add($expr.result);}
+      )*
 ;
 
-number returns [Expr result]
-  : INTEGER   {$result = IntLit.of($INTEGER.text);}
-  | FLOAT     {$result = FloatLit.of($FLOAT.text);}
+numero returns [Expr result]
+  : INTEGER   {$result = Inteiro.of($INTEGER.text);}
 ;
 
 bool returns [Expr result]
-  : TRUE    {$result = Bool.VERUM;}
-  | FALSE   {$result = Bool.FALSUM;}
+  : TRUE    {$result = Bool.FATO;}
+  | FALSE   {$result = Bool.FAKE;}
 ;
 
 FUNC: 'func';
@@ -160,16 +143,15 @@ MAIORIGUAL: '>=';
 MAIOR: '>';
 MENORIGUAL: '<=';
 MENOR: '<';
+NOT: '!';
 RECEBE: ':=';
 
 CARACTERE: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')* ;
 fragment DIGIT: '0'..'9' ;
-FLOAT: DIGIT+ '.' DIGIT+ ;
 INTEGER: DIGIT+ ;
-fragment ESCAPE: '\\' [btnrf"'\\] ;
-fragment UCHAR: '\\u' DIGIT DIGIT DIGIT DIGIT ;
-CHAR: '\'' (~[\r\n\\'] | ESCAPE | UCHAR) '\'' ;
-STRING: '"' (~[\r\n\\"] | ESCAPE | UCHAR)* '"' ;
+
+CHAR: '\'' (~[\r\n\\']) '\'' ;
+STRING: '"' (~[\r\n\\"])* '"' ;
 NL: '\n';
 WS: (' ' | '\t' | '\r')+ -> skip ;
 LINE_COMMENT: '//' ~[\r\n]* -> skip;

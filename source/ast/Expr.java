@@ -1,5 +1,6 @@
 package source.ast;
 
-public abstract class Expr {
+public abstract class Expr implements Comparable<Expr>{
+    
     
 }
